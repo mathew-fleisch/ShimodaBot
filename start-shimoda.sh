@@ -68,7 +68,7 @@ if [[ -d ${TARGETPATH} ]]; then
 			# echo "${TARGETPATH}/${NETWORK}/${CHANNEL,,}/in" # DEBUG
 			echo "${BOTNAME} reporting for duty!" > ${TARGETPATH}/${NETWORK}/${CHANNEL,,}/in
 			echo "Run ${BOTNAME}"
-			$(${BOTPATH} -d ${TARGETPATH}/${NETWORK}/${CHANNEL,,} &)
+			echo "${BOTPATH} -d ${TARGETPATH}/${NETWORK}/${CHANNEL,,}"
 		fi
 	else 
 		echo "Must specify bot location"
