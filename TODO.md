@@ -1,6 +1,6 @@
 # Bugs
-
- - Function matches should start at the beginning of the message and not anywhere in the message (m/^search/ vs m/search/g)
+ 
+ - I'm sure there are some I haven't found...
 
 # Ideas for ShimodaBot
 
