@@ -5,7 +5,7 @@ command -v inotifywait >/dev/null 2>&1 || { echo "This script requires inotify-t
 
 # Globals
 DESTINATION=""
-declare -A SIMPLE_MESSAGES=( ["What's up ShimodaBot"]="I'm Drunk..." ["Hey"]="Howdy" )
+declare -A SIMPLE_MESSAGES=( ["What's up ShimodaBot"]="I'm Drunk..." ["Hey"]="Howdy" ["!attack"]="Pew! Pew!" )
 
 # Get target destination path
 while [[ $# -gt 1 ]]
