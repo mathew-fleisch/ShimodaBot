@@ -5,7 +5,9 @@ command -v inotifywait >/dev/null 2>&1 || { echo "This script requires inotify-t
 
 # Globals
 DESTINATION=""
-declare -A SIMPLE_MESSAGES=( ["What's up ShimodaBot"]="I'm Drunk..." ["Hey"]="Howdy" ["!attack"]="Pew! Pew!" )
+
+# Includes
+source ./lib/phrases.sh
 
 # Get target destination path
 while [[ $# -gt 1 ]]
@@ -39,10 +41,10 @@ if [[ -d ${DESTINATION} ]]; then
 	while inotifywait -e modify ${DESTINATION}/out; do
 		NEWMSG=$(tail -n1 ${DESTINATION}/out | sed -e 's/.*>\ //g')
 		# echo "NEWMSG: ${NEWMSG}" # DEBUG
-		for user_message in "${!SIMPLE_MESSAGES[@]}"; do 
-			# echo "$user_message - ${SIMPLE_MESSAGES[$user_message]}"
+		for user_message in "${!PHRASES[@]}"; do 
+			# echo "$user_message - ${PHRASES[$user_message]}"
 			if echo "${NEWMSG}" | grep "^${user_message}"; then
-				echo "${SIMPLE_MESSAGES[$user_message]}" > ${DESTINATION}/in
+				echo "${PHRASES[$user_message]}" > ${DESTINATION}/in
 				break 1;
 			fi
 		done
