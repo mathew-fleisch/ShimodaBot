@@ -8,6 +8,7 @@ DESTINATION=""
 
 # Includes
 source ./lib/phrases.sh
+source ./lib/commands.sh
 
 # Get target destination path
 while [[ $# -gt 1 ]]
@@ -40,15 +41,25 @@ if [[ -d ${DESTINATION} ]]; then
 	# echo $DESTINATION; # DEBUG
 	while inotifywait -e modify ${DESTINATION}/out; do
 		NEWMSG=$(tail -n1 ${DESTINATION}/out | sed -e 's/.*>\ //g')
-		# echo "NEWMSG: ${NEWMSG}" # DEBUG
+		echo "NEWMSG: ${NEWMSG}" # DEBUG
 		for user_message in "${!PHRASES[@]}"; do 
 			# echo "$user_message - ${PHRASES[$user_message]}"
 			if echo "${NEWMSG}" | grep "^${user_message}"; then
 				echo "${PHRASES[$user_message]}" > ${DESTINATION}/in
-				break 1;
+				break 1
+			fi
+		done
+
+		for user_message in "${!COMMANDS[@]}"; do 
+			# Check message for command character '!'
+			# echo "$user_message - ${COMMANDS[$user_message]}"
+			if echo "${NEWMSG}" | grep "^${user_message}"; then
+				echo "${COMMANDS[$user_message]}" > ${DESTINATION}/in
+				break 1
 			fi
 		done
 	done
 else
 	echo "Directory not found: ${DESTINATION}"
 fi
+

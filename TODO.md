@@ -4,7 +4,6 @@
 
 # Ideas for ShimodaBot
 
- - Separate out functions/commands from key/value triggers into includ
  - Magic 8 ball
  - GreatestGen Trivia
  - Isoliniar Jenga (russian roulette)
