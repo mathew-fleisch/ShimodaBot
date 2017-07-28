@@ -1,6 +1,7 @@
 #!/bin/bash
 
 declare -A COMMANDS=( 
-	["!attack"]="Pew! Pew!" 
-	["!loadavg"]=$(uptime | sed -e 's/^.*load/load/g')
+	["!attack"]="attack" 
+	["!loadavg"]="loadavg"
+	["!8ball"]="8ball"
 )

@@ -50,14 +50,35 @@ if [[ -d ${DESTINATION} ]]; then
 			fi
 		done
 
-		for user_message in "${!COMMANDS[@]}"; do 
-			# Check message for command character '!'
-			# echo "$user_message - ${COMMANDS[$user_message]}"
-			if echo "${NEWMSG}" | grep "^${user_message}"; then
-				echo "${COMMANDS[$user_message]}" > ${DESTINATION}/in
-				break 1
-			fi
-		done
+		if echo "${NEWMSG}" | grep "^!"; then
+			# echo "COMMAND: ${NEWMSG}" # DEBUG
+			for user_message in "${!COMMANDS[@]}"; do 
+				# echo "$user_message - ${COMMANDS[$user_message]}"
+				if echo "${NEWMSG}" | grep "^${user_message}"; then
+					# echo "${COMMANDS[$user_message]}" > ${DESTINATION}/in
+					case "${COMMANDS[$user_message]}" in 
+						attack)
+						echo "Pew! Pew!" > ${DESTINATION}/in
+						shift
+						;; 
+						loadavg)
+						echo $(uptime | sed -e 's/^.*load/load/g') > ${DESTINATION}/in
+						shift
+						;;
+						8ball)
+						echo $(shuf -n 1 ./lib/8ball.txt) > ${DESTINATION}/in
+						shift
+						;;
+						default)
+						;;
+						*)
+						;;
+					esac
+					shift
+					break 1
+				fi
+			done
+		fi
 	done
 else
 	echo "Directory not found: ${DESTINATION}"
