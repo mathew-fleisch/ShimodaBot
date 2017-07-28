@@ -58,15 +58,28 @@ if [[ -d ${DESTINATION} ]]; then
 					# echo "${COMMANDS[$user_message]}" > ${DESTINATION}/in
 					case "${COMMANDS[$user_message]}" in 
 						attack)
-						echo "Pew! Pew!" > ${DESTINATION}/in
+							echo "Pew! Pew!" > ${DESTINATION}/in
 						shift
 						;; 
 						loadavg)
-						echo $(uptime | sed -e 's/^.*load/load/g') > ${DESTINATION}/in
+							echo $(uptime | sed -e 's/^.*load/load/g') > ${DESTINATION}/in
 						shift
 						;;
 						8ball)
-						echo $(shuf -n 1 ./lib/8ball.txt) > ${DESTINATION}/in
+							echo $(shuf -n 1 ./lib/8ball.txt) > ${DESTINATION}/in
+						shift
+						;;
+						CaH)
+							tmp_cah=$(shuf -n 1 ./lib/cah_questions.txt)
+							tmp_count=$(echo ${tmp_cah} | grep -o "_" | wc -l)
+							tmp_cah=$(echo ${tmp_cah} | sed -e 's/_/__________/g')
+							if [[ "${tmp_count}" -eq 0 ]]; then 
+								tmp_count=1
+							fi
+							echo "${tmp_cah}" > ${DESTINATION}/in
+							for i in $(seq 1 $tmp_count); do
+								echo $(shuf -n 1 ./lib/cah_answers.txt) > ${DESTINATION}/in
+							done
 						shift
 						;;
 						default)
