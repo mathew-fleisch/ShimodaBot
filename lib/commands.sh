@@ -5,4 +5,6 @@ declare -A COMMANDS=(
 	["!loadavg"]="loadavg"
 	["!8ball"]="8ball"
 	["!CaH"]="CaH"
+	["!q-CaH"]="q-CaH"
+	["!a-CaH"]="a-CaH"
 )

@@ -69,6 +69,16 @@ if [[ -d ${DESTINATION} ]]; then
 							echo $(shuf -n 1 ./lib/8ball.txt) > ${DESTINATION}/in
 						shift
 						;;
+						q-CaH)
+							tmp_cah=$(shuf -n 1 ./lib/cah_questions.txt)
+							tmp_cah=$(echo ${tmp_cah} | sed -e 's/_/__________/g')
+							echo "${tmp_cah}" > ${DESTINATION}/in
+						shift
+						;;
+						a-CaH)
+							echo $(shuf -n 1 ./lib/cah_answers.txt) > ${DESTINATION}/in
+						shift
+						;;
 						CaH)
 							tmp_cah=$(shuf -n 1 ./lib/cah_questions.txt)
 							tmp_count=$(echo ${tmp_cah} | grep -o "_" | wc -l)
